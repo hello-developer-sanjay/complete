@@ -1,10 +1,11 @@
-
 {
   "version": 2,
   "builds": [
-    { "src": "/frontend/**", "use": "@vercel/static" }
+    { "src": "src/main.jsx", "use": "@vercel/static-build" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/frontend/index.html" }
+    { "src": "/src/.*", "headers": { "Cache-Control": "s-maxage=86400" } },
+    { "src": "/src/assets/.*", "headers": { "Cache-Control": "public, max-age=31536000, immutable" } },
+    { "src": "/(?!src)(.*)", "dest": "src/index.html" }
   ]
 }
