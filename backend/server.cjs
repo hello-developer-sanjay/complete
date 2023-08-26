@@ -31,11 +31,10 @@ const Working = mongoose.model('working', { title: String, overview: [String], d
 const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String, });
 const Query = mongoose.model('query', { name: String, email: String, query: String, });
 
-app.use(express.static(path.join(__dirname, 'frontend')));
-
-// Fallback route to serve your main index.html for all other routes
+// Serve the frontend's index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  const frontendIndexPath = path.join(__dirname, '../frontend', 'index.html');
+  res.sendFile(frontendIndexPath);
 });
 
 app.get('/api/:collection', async (req, res) => {
