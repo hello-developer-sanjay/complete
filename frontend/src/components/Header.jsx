@@ -1,16 +1,9 @@
-/* eslint-disable react/display-name */
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable react/prop-types */
-import React from "react";
-import  { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import { Dropdown, Menu } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { chakra } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-
-
 
 const MotionButton = chakra(motion.button);
 
@@ -19,14 +12,14 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
     ageofai: [],
     webdev: [],
     devtools: [],
-    road: [], // Add road collection titles
+    road: [],
   });
 
   useEffect(() => {
     fetchData("ageofai");
     fetchData("webdev");
     fetchData("devtools");
-    fetchData("road"); // Fetch data for "road" collection
+    fetchData("road");
   }, []);
 
   const fetchData = (collection) => {
@@ -42,6 +35,7 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
         console.error(`Error fetching data from ${collection} collection.`, error);
       });
   };
+
   const fetchDocumentData = (collection, title) => {
     axios
       .get(`https://back-ox05.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
@@ -49,11 +43,18 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
         setSelectedDocument(response.data.find((item) => item.title === title));
         setSelectedCollectionAndTitle({ collection, title });
         onSetActiveButton(collection);
+
+        window.history.pushState(
+          null,
+          null,
+          `/home?collection=${collection}&title=${encodeURIComponent(title)}`
+        );
       })
       .catch((error) => {
         console.error("Error fetching document data.", error);
       });
   };
+
   const MoreDropdownMenu = React.forwardRef(({ collection, titles }, ref) => (
     <Menu ref={ref}>
       {titles.map((title) => (
