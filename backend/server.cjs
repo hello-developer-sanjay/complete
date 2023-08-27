@@ -80,7 +80,19 @@ const Query = mongoose.model('query', {
   email: String,
   query: String,
 });
+// Serve static files from the 'frontend' folder
+app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Serve JavaScript files with the correct MIME type
+app.get('*.js', (req, res) => {
+  res.type('application/javascript');
+  res.sendFile(path.join(__dirname, '../frontend', req.url));
+});
+
+// Always serve the main 'index.html' for any other requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
 
 // Routes for all collections
 app.get('/api/:collection', async (req, res) => {
