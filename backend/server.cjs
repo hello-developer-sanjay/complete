@@ -21,6 +21,23 @@ mongoose.connect(mongoURIMyDB, {
 .catch(error => {
   console.error('Error connecting to MongoDB (mydb):', error);
 });
+const setJavaScriptContentType = (req, res, next) => {
+  if (req.url.endsWith('.js')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
+  next();
+};
+
+// Use the middleware to set the Content-Type for JavaScript files
+app.use(setJavaScriptContentType);
+
+// Serve static files from the frontend directory
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Serve the index.html for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
 
 
 const AgeOfAI = mongoose.model('ageofai', { title: String, overview: [String], keypoints: [String] });
@@ -63,23 +80,6 @@ app.get('/api/:collection', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: `Error fetching data from ${collection} collection` });
   }
-});
-const setJavaScriptContentType = (req, res, next) => {
-  if (req.url.endsWith('.js')) {
-    res.setHeader('Content-Type', 'application/javascript');
-  }
-  next();
-};
-
-// Use the middleware to set the Content-Type for JavaScript files
-app.use(setJavaScriptContentType);
-
-// Serve static files from the frontend directory
-app.use(express.static(path.join(__dirname, '../frontend')));
-
-// Serve the index.html for all routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
 
 app.post('/api/submit-feedback', async (req, res) => {
