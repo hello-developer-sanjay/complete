@@ -33,6 +33,11 @@ const Query = mongoose.model('query', { name: String, email: String, query: Stri
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+app.get('*.js', (req, res, next) => {
+  res.set('Content-Type', 'application/javascript');
+  next();
+});
+
 app.get('*.jsx', (req, res, next) => {
   res.set('Content-Type', 'application/javascript');
   next();
