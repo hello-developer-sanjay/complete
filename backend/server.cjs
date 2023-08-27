@@ -31,7 +31,7 @@ const Working = mongoose.model('working', { title: String, overview: [String], d
 const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String });
 const Query = mongoose.model('query', { name: String, email: String, query: String });
 
-app.use(express.static(path.join(__dirname, '../frontend')));
+
 // Serve JavaScript files with the correct MIME type
 app.get('*.js', (req, res) => {
   res.type('application/javascript');
@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
-
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('/api/:collection', async (req, res) => {
   const collection = req.params.collection;
