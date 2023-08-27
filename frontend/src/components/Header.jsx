@@ -22,14 +22,20 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
     fetchData("road");
   }, []);
 
-  const fetchData = (collection) => {
+   const fetchData = (collection) => {
     axios
       .get(`https://y5ng.onrender.com/api/${collection}`)
       .then((response) => {
-        setDocumentTitles((prevTitles) => ({
-          ...prevTitles,
-          [collection]: response.data.map((item) => item.title),
-        }));
+        console.log(`Response data for ${collection} collection:`, response.data);
+  
+        if (Array.isArray(response.data)) {
+          setDocumentTitles((prevTitles) => ({
+            ...prevTitles,
+            [collection]: response.data.map((item) => item.title),
+          }));
+        } else {
+          console.error(`Invalid response data structure for ${collection} collection.`);
+        }
       })
       .catch((error) => {
         console.error(`Error fetching data from ${collection} collection.`, error);
