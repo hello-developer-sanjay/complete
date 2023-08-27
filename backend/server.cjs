@@ -33,7 +33,7 @@ const Query = mongoose.model('query', { name: String, email: String, query: Stri
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 // Serve JavaScript files with the correct MIME type
-app.get('*.jsx', (req, res) => {
+app.get('*.js', (req, res) => {
   res.type('application/javascript');
   res.sendFile(path.join(__dirname, '../frontend', req.url));
 });
