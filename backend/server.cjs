@@ -22,12 +22,16 @@ mongoose.connect(mongoURIMyDB, {
   console.error('Error connecting to MongoDB (mydb):', error);
 });
 
-
-// Serve JavaScript files with the correct MIME type
-app.get('*.js', (req, res, next) => {
-  res.type('application/javascript');
+// Custom middleware to set Content-Type for JavaScript files
+const setJavaScriptContentType = (req, res, next) => {
+  if (req.url.endsWith('.js')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
   next();
-});
+};
+
+// Use the middleware to set the Content-Type for JavaScript files
+app.use(setJavaScriptContentType);
 
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -36,8 +40,6 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
-
-
 const AgeOfAI = mongoose.model('ageofai', { title: String, overview: [String], keypoints: [String] });
 const DevTools = mongoose.model('devtools', { title: String, overview: [String], CourseDetails: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
 const WebDev = mongoose.model('webdev', { title: String, overview: [String], description: [String], keypoints: [String] });
