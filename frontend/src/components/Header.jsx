@@ -24,7 +24,7 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
 
   const fetchData = (collection) => {
     axios
-      .get(`https://back-ox05.onrender.com/api/${collection}`)
+      .get(`https://y5ng.onrender.com/api/${collection}`)
       .then((response) => {
         setDocumentTitles((prevTitles) => ({
           ...prevTitles,
@@ -38,7 +38,7 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
 
   const fetchDocumentData = (collection, title) => {
     axios
-      .get(`https://back-ox05.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
+      .get(`https://y5ng.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
       .then((response) => {
         setSelectedDocument(response.data.find((item) => item.title === title));
         setSelectedCollectionAndTitle({ collection, title });
