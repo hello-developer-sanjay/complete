@@ -44,7 +44,7 @@ const Blogs = () => {
   const fetchData = async (collection) => {
     try {
       const response = await fetch(
-        `https://y5ng.onrender.com/api/${collection}`
+        `https://yrtuherg.onrender.com/api/${collection}`
       );
       const responseData = await response.json();
       setBlogsData((prevData) => ({
