@@ -30,16 +30,7 @@ const Tools = mongoose.model('tools', { title: String, overview: [String], descr
 const Working = mongoose.model('working', { title: String, overview: [String], description: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
 const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String });
 const Query = mongoose.model('query', { name: String, email: String, query: String });
-app.get('*.js', (req, res, next) => {
-  res.set('Content-Type', 'application/javascript');
-  next();
-});
-app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Serve the index.html for all routes not handled by API
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
-});
 
 app.get('/api/:collection', async (req, res) => {
   const collection = req.params.collection;
