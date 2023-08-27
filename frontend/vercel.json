@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "src/main.jsx", "use": "@vercel/static-build" }
-  ],
+ 
   "routes": [
     { "src": "/src/.*", "headers": { "Cache-Control": "s-maxage=86400" } },
     { "src": "/src/assets/.*", "headers": { "Cache-Control": "public, max-age=31536000, immutable" } },
