@@ -22,6 +22,22 @@ mongoose.connect(mongoURIMyDB, {
   console.error('Error connecting to MongoDB (mydb):', error);
 });
 
+
+// Serve JavaScript files with the correct MIME type
+app.get('*.js', (req, res, next) => {
+  res.type('application/javascript');
+  next();
+});
+
+// Serve static files from the frontend directory
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Serve the index.html for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
+
+
 const AgeOfAI = mongoose.model('ageofai', { title: String, overview: [String], keypoints: [String] });
 const DevTools = mongoose.model('devtools', { title: String, overview: [String], CourseDetails: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
 const WebDev = mongoose.model('webdev', { title: String, overview: [String], description: [String], keypoints: [String] });
@@ -31,15 +47,7 @@ const Working = mongoose.model('working', { title: String, overview: [String], d
 const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String });
 const Query = mongoose.model('query', { name: String, email: String, query: String });
 
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.get('*.js', (req, res) => {
-  res.type('application/javascript');
-  res.sendFile(path.join(__dirname, '../frontend', req.url));
-});
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
-});
 
 app.get('/api/:collection', async (req, res) => {
   const collection = req.params.collection;
