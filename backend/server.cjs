@@ -32,6 +32,10 @@ const Feedback = mongoose.model('feedback', { name: String, email: String, feedb
 const Query = mongoose.model('query', { name: String, email: String, query: String });
 
 app.use(express.static(path.join(__dirname, '../frontend')));
+app.get('*.js', (req, res, next) => {
+  res.set('Content-Type', 'text/javascript');
+  next();
+});
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
