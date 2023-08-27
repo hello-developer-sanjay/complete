@@ -22,14 +22,14 @@ mongoose.connect(mongoURIMyDB, {
   console.error('Error connecting to MongoDB (mydb):', error);
 });
 
-const AgeOfAI = mongoose.model('ageofai', { title: String, overview: [String], keypoints: [String], });
-const DevTools = mongoose.model('devtools', { title: String, overview: [String], CourseDetails: [String], keypoints: [String], imageURL: [String], videoURL: [String], });
-const WebDev = mongoose.model('webdev', { title: String, overview: [String], description: [String], keypoints: [String], });
-const Road = mongoose.model('road', { title: String, overview: [String], description: [String], keypoints: [String], });
-const Tools = mongoose.model('tools', { title: String, overview: [String], description: [String], keypoints: [String], imageURL: [String], videoURL: [String], });
-const Working = mongoose.model('working', { title: String, overview: [String], description: [String], keypoints: [String], imageURL: [String], videoURL: [String], });
-const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String, });
-const Query = mongoose.model('query', { name: String, email: String, query: String, });
+const AgeOfAI = mongoose.model('ageofai', { title: String, overview: [String], keypoints: [String] });
+const DevTools = mongoose.model('devtools', { title: String, overview: [String], CourseDetails: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
+const WebDev = mongoose.model('webdev', { title: String, overview: [String], description: [String], keypoints: [String] });
+const Road = mongoose.model('road', { title: String, overview: [String], description: [String], keypoints: [String] });
+const Tools = mongoose.model('tools', { title: String, overview: [String], description: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
+const Working = mongoose.model('working', { title: String, overview: [String], description: [String], keypoints: [String], imageURL: [String], videoURL: [String] });
+const Feedback = mongoose.model('feedback', { name: String, email: String, feedback: String });
+const Query = mongoose.model('query', { name: String, email: String, query: String });
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
