@@ -32,10 +32,8 @@ const Feedback = mongoose.model('feedback', { name: String, email: String, feedb
 const Query = mongoose.model('query', { name: String, email: String, query: String });
 
 app.use(express.static(path.join(__dirname, '../frontend')));
-app.get('*.jsx', (req, res, next) => {
-  res.set('Content-Type', 'text/javascript');
-  next();
-});
+
+// Fallback route to serve your main index.html for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
