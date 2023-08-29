@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 const allowedOrigins = [
-  'https://main--famous-cheesecake-8ae6d1.netlify.app',
+  'https://workrework-sigma.vercel.app',
 
   // Add more domains if needed
 ];
