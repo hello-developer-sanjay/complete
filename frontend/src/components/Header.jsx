@@ -24,7 +24,7 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
 
    const fetchData = (collection) => {
     axios
-      .get(`https://needme.onrender.com/api/${collection}`)
+      .get(`https://hello-back-0iam.onrender.com/api/${collection}`)
       .then((response) => {
         console.log(`Response data for ${collection} collection:`, response.data);
   
@@ -44,7 +44,7 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
 
   const fetchDocumentData = (collection, title) => {
     axios
-      .get(`https://needme.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
+      .get(`https://hello-back-0iam.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
       .then((response) => {
         setSelectedDocument(response.data.find((item) => item.title === title));
         setSelectedCollectionAndTitle({ collection, title });
