@@ -5,7 +5,22 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  'https://main--famous-cheesecake-8ae6d1.netlify.app',
+
+  // Add more domains if needed
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
+
 
 
 
