@@ -30,18 +30,14 @@ const App = () => {
         setSelectedDocument(response.data.find((item) => item.title === title));
         setActiveButton(collection);
 
+        // Update the URL
         navigate(`/home?collection=${collection}&title=${encodeURIComponent(title)}`, {
-          replace: true,
+          replace: true, // Replace the current URL
         });
       })
       .catch((error) => {
         console.error("Error fetching document data.", error);
       });
-  };
-
-  // Define the function to set the active button
-  const handleSetActiveButton = (button) => {
-    setActiveButton(button);
   };
 
   return (
@@ -57,7 +53,6 @@ const App = () => {
                 <>
                   <Header
                     activeButton={activeButton}
-                    onSetActiveButton={handleSetActiveButton} {/* Pass the function here */}
                     setSelectedDocument={setSelectedDocument}
                   />
                   <HomeWithSectionWrapper selectedDocument={selectedDocument} />
