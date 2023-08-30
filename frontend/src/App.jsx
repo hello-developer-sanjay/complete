@@ -21,13 +21,13 @@ const App = () => {
     }
   }, []);
 
-const fetchDocumentData = (collection, title) => {
+const fetchDocumentData = (title) => {
   axios
-    .get(`https://workrework-sigma.vercel.app/${encodeURIComponent(title)}`)
+    .get(`https://hello-back-0iam.onrender.com/api/${activeButton}?title=${encodeURIComponent(title)}`)
     .then((response) => {
-      setSelectedDocument(response.data);
-      setSelectedCollectionAndTitle({ collection, title });
-      onSetActiveButton(collection);
+      setSelectedDocument(response.data.find((item) => item.title === title));
+      setSelectedCollectionAndTitle({ collection: activeButton, title });
+      onSetActiveButton(activeButton);
 
       window.history.pushState(
         null,
@@ -39,6 +39,7 @@ const fetchDocumentData = (collection, title) => {
       console.error("Error fetching document data.", error);
     });
 };
+
 
 
   return (
