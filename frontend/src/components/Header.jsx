@@ -54,13 +54,14 @@ const fetchDocumentData = (title) => {
       window.history.pushState(
         null,
         null,
-        `/home?title=${encodeURIComponent(title)}`
+        `/home?collection=${collection}&title=${encodeURIComponent(title)}`
       );
     })
     .catch((error) => {
       console.error("Error fetching document data.", error);
     });
 };
+
 
 
 const MoreDropdownMenu = React.forwardRef(({ collection, titles }, ref) => (
