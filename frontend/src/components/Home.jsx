@@ -36,13 +36,22 @@ const Home = ({ selectedDocument }) => {
     }
   }, [selectedDocument]);
 
- useEffect(() => {
+useEffect(() => {
   const urlParams = new URLSearchParams(location.search);
+  const collection = urlParams.get("collection");
   const title = urlParams.get("title");
-  if (title) {
-    fetchDocumentData(title);
+  if (collection && title) {
+    axios
+      .get(`https://hello-back-0iam.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
+      .then((response) => {
+        setSelectedDocument(response.data.find((item) => item.title === title));
+      })
+      .catch((error) => {
+        console.error("Error fetching document data.", error);
+      });
   }
 }, [location.search]);
+
 
 
   const observeLastField = (node) => {
