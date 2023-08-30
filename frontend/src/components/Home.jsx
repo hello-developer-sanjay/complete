@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import Welcome from "./Welcome";
 import CompilerOverlay from "./CompilerOverlay";
 import { useNavigate, useLocation } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import "./Home.css";
 
 // eslint-disable-next-line react/prop-types
@@ -18,6 +19,7 @@ const Home = ({ selectedDocument }) => {
   const [compilerVisible, setCompilerVisible] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const [zoomedImage, setZoomedImage] = useState(null);
+  const { selectedField } = useParams();
 
   const observer = useRef();
 
