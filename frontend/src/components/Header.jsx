@@ -64,22 +64,22 @@ const fetchDocumentData = (title) => {
 
 
   const MoreDropdownMenu = React.forwardRef(({ collection, titles }, ref) => (
-    <Menu ref={ref}>
-      {titles.map((title) => (
-        <Menu.Item key={title}>
-          <MotionButton
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ y: -5, boxShadow: "0 0 10px #5F46E5", borderColor: "#5F46E5" }}
-            onClick={() => fetchDocumentData(collection, title)}
-            variant="primary"
-          >
-            {title}
-          </MotionButton>
-        </Menu.Item>
-      ))}
-    </Menu>
-  ));
-  
+  <Menu ref={ref}>
+    {titles.map((title) => (
+      <Menu.Item key={title}>
+        <MotionButton
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ y: -5, boxShadow: "0 0 10px #5F46E5", borderColor: "#5F46E5" }}
+          onClick={() => fetchDocumentData(title)} // Updated to only pass title
+          variant="primary"
+        >
+          {title}
+        </MotionButton>
+      </Menu.Item>
+    ))}
+  </Menu>
+));
+
 
   const DropdownMenu = React.forwardRef(({ collection }, ref) => {
     const [showMore, setShowMore] = useState(false);
