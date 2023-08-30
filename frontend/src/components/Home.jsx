@@ -5,7 +5,6 @@ import ReactPlayer from "react-player";
 import Welcome from "./Welcome";
 import CompilerOverlay from "./CompilerOverlay";
 import { useNavigate, useLocation } from "react-router-dom";
-import {  useParams } from "react-router-dom";
 import "./Home.css";
 
 // eslint-disable-next-line react/prop-types
@@ -15,11 +14,10 @@ const Home = ({ selectedDocument }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [playingVideoUrl, setPlayingVideoUrl] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [ setSelectedField] = useState(null);
+  const [selectedField, setSelectedField] = useState(null);
   const [compilerVisible, setCompilerVisible] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const [zoomedImage, setZoomedImage] = useState(null);
-  const { selectedField } = useParams();
 
   const observer = useRef();
 
