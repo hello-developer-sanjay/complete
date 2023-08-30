@@ -44,22 +44,23 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
 
 const fetchDocumentData = (collection, title) => {
   axios
-    .get(`https://workrework-sigma.vercel.app/${collection}/${encodeURIComponent(title)}`)
+    .get(`https://workrework-sigma.vercel.app/${encodeURIComponent(title)}`)
     .then((response) => {
-      setSelectedDocument(response.data.find((item) => item.title === title));
+      setSelectedDocument(response.data);
       setSelectedCollectionAndTitle({ collection, title });
       onSetActiveButton(collection);
 
       window.history.pushState(
         null,
         null,
-        `/home?collection=${collection}&title=${encodeURIComponent(title)}`
+        `/home?title=${encodeURIComponent(title)}`
       );
     })
     .catch((error) => {
       console.error("Error fetching document data.", error);
     });
 };
+
 
   const MoreDropdownMenu = React.forwardRef(({ collection, titles }, ref) => (
     <Menu ref={ref}>
