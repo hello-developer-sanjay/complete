@@ -4,7 +4,6 @@ import { DownOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { chakra } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 const MotionButton = chakra(motion.button);
 
@@ -42,25 +41,25 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
         console.error(`Error fetching data from ${collection} collection.`, error);
       });
   };
-const navigate = useNavigate(); 
-  const fetchDocumentData = (collection, title) => {
-    axios
-      .get(`https://hello-back-0iam.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
-      .then((response) => {
-        setSelectedDocument(response.data.find((item) => item.title === title));
-        setSelectedCollectionAndTitle({ collection, title });
-        onSetActiveButton(collection);
 
-        window.history.pushState(
-          null,
-          null,
-          `/home?collection=${collection}&title=${encodeURIComponent(title)}`
-        );
-      })
-      .catch((error) => {
-        console.error("Error fetching document data.", error);
-      });
-  };
+const fetchDocumentData = (collection, title) => {
+  axios
+    .get(`https://workrework-sigma.vercel.app/${collection}/${encodeURIComponent(title)}`)
+    .then((response) => {
+      setSelectedDocument(response.data.find((item) => item.title === title));
+      setSelectedCollectionAndTitle({ collection, title });
+      onSetActiveButton(collection);
+
+      window.history.pushState(
+        null,
+        null,
+        `/home?collection=${collection}&title=${encodeURIComponent(title)}`
+      );
+    })
+    .catch((error) => {
+      console.error("Error fetching document data.", error);
+    });
+};
 
   const MoreDropdownMenu = React.forwardRef(({ collection, titles }, ref) => (
     <Menu ref={ref}>
