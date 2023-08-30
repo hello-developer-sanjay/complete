@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Navbar, Header, Home, Blogs, Footer } from "./components";
 import SectionWrapper from "./hoc/SectionWrapper";
-import axios from "axios"; // Don't forget to import axios
 
 const HomeWithSectionWrapper = SectionWrapper(Home, "home");
 
 const App = () => {
   const [activeButton, setActiveButton] = useState("ageofai");
   const [selectedDocument, setSelectedDocument] = useState(null);
-  const [selectedCollectionAndTitle, setSelectedCollectionAndTitle] = useState(null);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const collection = urlParams.get("collection");
     const title = urlParams.get("title");
 
     if (collection && title) {
       fetchDocumentData(collection, title);
     }
-  }, []);
+  }, [location.search]);
 
   const fetchDocumentData = (collection, title) => {
     axios
       .get(`https://hello-back-0iam.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
       .then((response) => {
         setSelectedDocument(response.data.find((item) => item.title === title));
-        setSelectedCollectionAndTitle({ collection, title });
-        onSetActiveButton(collection);
+        setActiveButton(collection);
 
-        window.history.pushState(
-          null,
-          null,
-          `/home?collection=${collection}&title=${encodeURIComponent(title)}`
-        );
+        // Update the URL
+        navigate(`/home?collection=${collection}&title=${encodeURIComponent(title)}`, {
+          replace: true, // Replace the current URL
+        });
       })
       .catch((error) => {
         console.error("Error fetching document data.", error);
@@ -55,19 +55,12 @@ const App = () => {
                     activeButton={activeButton}
                     onSetActiveButton={setActiveButton}
                     setSelectedDocument={setSelectedDocument}
-                    setSelectedCollectionAndTitle={setSelectedCollectionAndTitle}
                   />
-                  <HomeWithSectionWrapper
-                    selectedDocument={selectedDocument}
-                    selectedCollectionAndTitle={selectedCollectionAndTitle}
-                  />
+                  <HomeWithSectionWrapper selectedDocument={selectedDocument} />
                 </>
               )}
             />
-            <Route
-              path="/home/:selectedField"
-              element={<Home selectedDocument={selectedDocument} />}
-            />
+            <Route path="/home/:selectedField" element={<Home />} />
             <Route path="/blogs/*" element={<Blogs />} />
           </Routes>
         </div>
