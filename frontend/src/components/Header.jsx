@@ -42,11 +42,12 @@ const Header = ({ activeButton, onSetActiveButton, setSelectedDocument, setSelec
       });
   };
 
-const fetchDocumentData = (collection, title) => {
+const fetchDocumentData = (title) => {
+  const collection = activeButton; // Get the collection from activeButton
   axios
-    .get(`https://workrework-sigma.vercel.app/${encodeURIComponent(title)}`)
+    .get(`https://hello-back-0iam.onrender.com/api/${collection}?title=${encodeURIComponent(title)}`)
     .then((response) => {
-      setSelectedDocument(response.data);
+      setSelectedDocument(response.data.find((item) => item.title === title));
       setSelectedCollectionAndTitle({ collection, title });
       onSetActiveButton(collection);
 
