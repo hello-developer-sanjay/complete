@@ -119,7 +119,8 @@ const fetchDocumentData = (title) => {
               popupOffset={[0, -10]}
               onTitleClick={() => setShowMore(!showMore)}
             >
-              <MoreDropdownMenu collection={collection} titles={titles.slice(10)} />
+            <MoreDropdownMenu collection={collection} titles={titles.slice(10)} />
+
             </Menu.SubMenu>
           </Menu.Item>
         )}
