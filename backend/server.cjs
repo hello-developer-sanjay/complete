@@ -8,6 +8,7 @@ const app = express();
 const allowedOrigins = [
   'https://workrework-sigma.vercel.app',
   'https://work4me.vercel.app',
+  'https://workrework-edu.vercel.app',
 
   // Add more domains if needed
 ];
