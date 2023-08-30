@@ -15,7 +15,7 @@ const Home = ({ selectedDocument }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [playingVideoUrl, setPlayingVideoUrl] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedField, setSelectedField] = useState(null);
+  const [ setSelectedField] = useState(null);
   const [compilerVisible, setCompilerVisible] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const [zoomedImage, setZoomedImage] = useState(null);
