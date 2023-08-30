@@ -36,23 +36,14 @@ const Home = ({ selectedDocument }) => {
     }
   }, [selectedDocument]);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const fieldIndex = urlParams.get("selectedField");
-    if (fieldIndex !== null) {
-      setSelectedField(parseInt(fieldIndex));
-      const fieldElement = document.getElementById(`field-${fieldIndex}`);
-      if (fieldElement) {
-        const container = document.getElementById("home-section");
-        const containerRect = container.getBoundingClientRect();
-        const fieldRect = fieldElement.getBoundingClientRect();
+ useEffect(() => {
+  const urlParams = new URLSearchParams(location.search);
+  const title = urlParams.get("title");
+  if (title) {
+    fetchDocumentData(title);
+  }
+}, [location.search]);
 
-        const offsetY = fieldRect.top - containerRect.top;
-        container.scrollBy({ top: offsetY, behavior: "smooth" });
-      }
-      setSidebarOpen(false);
-    }
-  }, [location.search]);
 
   const observeLastField = (node) => {
     if (observer.current) {
