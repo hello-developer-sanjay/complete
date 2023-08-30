@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 const allowedOrigins = [
   'https://workrework-sigma.vercel.app',
-  'https://workrework-jrx06ycgb-hello-developer-sanjay.vercel.app',
+  'https://work4me.vercel.app',
 
   // Add more domains if needed
 ];
