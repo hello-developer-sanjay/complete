@@ -9,7 +9,7 @@ const allowedOrigins = [
   'https://workrework-sigma.vercel.app',
   'https://work4me.vercel.app',
   'https://workrework-edu.vercel.app',
-  
+  'http://localhost:5173',
 
 ];
 
